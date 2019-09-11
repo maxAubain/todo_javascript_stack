@@ -48,7 +48,12 @@ export const ToDoLists = ({ style }) => {
   /* Hook that functions similarly to componentDidMount() */
   useEffect(() => {
     getPersonalTodos().then(setToDoLists);
+    console.log("COMPONENT MOUNT")
   }, []);
+
+  /* Monitor state variables */
+  console.log("All todo lists", toDoLists)
+  console.log("Current list", activeList)
 
   if (!Object.keys(toDoLists).length) return null;
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
@@ -63,7 +68,7 @@ export const ToDoLists = ({ style }) => {
           </Typography>
           <List>
             {Object.keys(toDoLists).map(key => (
-              <ListItem key={key} button onClick={() => setActiveList(key)}>
+              <ListItem key={key} button onClick={() => { setActiveList(key); console.log("SET ACTIVE LIST") }}>
                 <ListItemIcon>
                   <ReceiptIcon />
                 </ListItemIcon>

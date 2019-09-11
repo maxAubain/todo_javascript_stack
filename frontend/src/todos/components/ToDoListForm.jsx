@@ -40,7 +40,11 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const handleSubmit = event => {
     event.preventDefault();
     saveToDoList(toDoList.id, { todos });  // saveToDoList() as defined in ToDoLists
+    console.log("SAVED")
   };
+
+  /* Monitor state variable */
+  console.log("Current todos", todos)
 
   return (
     <Card className={classes.card}>
