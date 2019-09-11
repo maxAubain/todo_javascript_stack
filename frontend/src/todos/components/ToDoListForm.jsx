@@ -32,8 +32,6 @@ const useStyles = makeStyles({
 
 export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const classes = useStyles();
-
-  /* Instantiates todos state variable importing toDoList from props */
   const [todos, setTodos] = useState(toDoList.todos);
 
   /* Updates toDoList using saveToDoList() from props */
