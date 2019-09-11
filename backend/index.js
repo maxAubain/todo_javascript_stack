@@ -3,8 +3,9 @@ const cors = require("cors");
 
 const app = express();
 const PORT = 3001;
+const path = 'http://localhost:3000';
 
-app.use(cors({origin: 'http://localhost:3001'})); // Enables cross-origin HTTP requests (CORS) with white-listed client address.
+app.use(cors({origin: path })); // Enables cross-origin HTTP requests (CORS) with white-listed client address.
 
 const  getResponse = "Hello world"
 app.get("/", (req, res) => {
