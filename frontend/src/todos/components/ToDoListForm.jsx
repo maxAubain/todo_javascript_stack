@@ -32,8 +32,11 @@ const useStyles = makeStyles({
 
 export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const classes = useStyles();
+
+  /* Instantiates todos state variable importing toDoList from props */
   const [todos, setTodos] = useState(toDoList.todos);
 
+  /* Updates toDoList using saveToDoList() from props */
   const handleSubmit = event => {
     event.preventDefault();
     saveToDoList(toDoList.id, { todos });  // saveToDoList() as defined in ToDoLists
@@ -64,7 +67,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                   setTodos([
                     // immutable update
                     ...todos.slice(0, index),
-                    event.target.value,
+                    event.target.value, // inserts new todo at array location 'index'
                     ...todos.slice(index + 1)
                   ]);
                 }}
@@ -79,7 +82,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                 onClick={() => {
                   setTodos([
                     // immutable delete
-                    ...todos.slice(0, index),
+                    ...todos.slice(0, index), // deletes todo at array location 'index'
                     ...todos.slice(index + 1)
                   ]);
                 }}

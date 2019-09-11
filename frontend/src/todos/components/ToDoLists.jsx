@@ -12,8 +12,8 @@ import ReceiptIcon from "@material-ui/icons/Receipt";
 import Typography from "@material-ui/core/Typography";
 import { ToDoListForm } from "./ToDoListForm";
 
-/* Define sleep function with argument in miliseconds using JS setTimeout()
-https://www.w3schools.com/jsref/met_win_settimeout.asp */
+/* Define one time method with setTimeout()
+https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout */
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const getPersonalTodos = () => {
@@ -35,17 +35,23 @@ const getPersonalTodos = () => {
 };
 
 export const ToDoLists = ({ style }) => {
-  /* Instantiating the todo lists */
+  /* Instantiates toDoLists state variable using the useState hook.
+  Passes no state information other than it is an object.  toDoLists object
+  example is shown above, with key, and value as hash with id, title, and
+  todos array. */
   const [toDoLists, setToDoLists] = useState({});
 
-  /* Instantiating the activeList that appears when a todo list is clicked on */
+  /* Instantiates activeList state variable that stores state information
+  about which todo list is shown when when clicked. */
   const [activeList, setActiveList] = useState();
 
+  /* Hook that functions similarly to componentDidMount() */
   useEffect(() => {
     getPersonalTodos().then(setToDoLists);
   }, []);
 
   if (!Object.keys(toDoLists).length) return null;
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
 
   return (
     <Fragment>
