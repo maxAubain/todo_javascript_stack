@@ -11,27 +11,16 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import Typography from "@material-ui/core/Typography";
 import { ToDoListForm } from "./ToDoListForm";
-import Get from "../../shared/ServerMethods";
 
-/* Define one time method with setTimeout()
-https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout */
+import axios from "axios";
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const getPersonalTodos = () => {
   return sleep(1000).then(() =>
-    /* "Hardcoded" todos upon startup. */
-    Promise.resolve({
-      "0000000001": {
-        id: "0000000001",
-        title: "First List",
-        todos: ["First todo of first list!"]
-      },
-      "0000000002": {
-        id: "0000000002",
-        title: "Second List",
-        todos: ["First todo of second list!"]
-      }
-    })
+    axios
+      .get("http://localhost:3001/init-todos")
+      .then(response => Promise.resolve(response.data))
   );
 };
 
@@ -50,15 +39,14 @@ export const ToDoLists = ({ style }) => {
   useEffect(() => {
     getPersonalTodos().then(setToDoLists);
     console.log("COMPONENT MOUNT");
-    Get();
   }, []);
 
   /* Monitor state variables */
   console.log("All todo lists", toDoLists);
   console.log("Current list", activeList);
 
+  /* This is an oh-shit warning if no todo list info loads */
   if (!Object.keys(toDoLists).length) return null;
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
 
   return (
     <Fragment>
