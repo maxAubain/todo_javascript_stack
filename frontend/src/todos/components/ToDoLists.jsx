@@ -87,6 +87,9 @@ export const ToDoLists = ({ style }) => {
               ...toDoLists,
               [id]: { ...listToUpdate, todos }
             });
+            axios
+              .post('http://localhost:3001/todos', 0 /* toDoLists */)
+              .then(response => console.log(response));
           }}
         />
       )}
