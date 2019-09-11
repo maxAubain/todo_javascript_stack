@@ -48,6 +48,10 @@ export const ToDoLists = ({ style }) => {
   /* This is an oh-shit warning if no todo list info loads */
   if (!Object.keys(toDoLists).length) return null;
 
+  axios
+  .post('http://localhost:3001/todos', toDoLists)
+  .then(response => console.log(response));
+
   return (
     <Fragment>
       {/* Top section with My ToDo Lists, and selection of First and Second List */}
@@ -87,9 +91,6 @@ export const ToDoLists = ({ style }) => {
               ...toDoLists,
               [id]: { ...listToUpdate, todos }
             });
-            axios
-              .post('http://localhost:3001/todos', 0 /* toDoLists */)
-              .then(response => console.log(response));
           }}
         />
       )}

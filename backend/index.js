@@ -1,9 +1,11 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const app = express();
 const PORT = 3001;
 const targetPath = "http://localhost:3000";
+const jsonParser = bodyParser.json();
 
 app.use(cors({ origin: targetPath })); // Enables cross-origin HTTP requests (CORS) with white-listed client address.
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
@@ -22,16 +24,13 @@ const initTodos = {
   }
 };
 
-let currentTodos = {};
+let currentTodos = 0;
 
 /* Server methods */
-
 app.get("/init-todos", (req, res) => {
-  res.send(initTodos);
+  currentTodos == 0 ? res.send(initTodos) : res.send(currentTodos);
 });
 
-app.post("/todos", (req, res) => {
-  res.send('Got a POST request');
-  console.log(req)
-  //currentTodos = req.data;
+app.post("/todos", jsonParser, (req, res) => {
+  currentTodos = req.body;
 });
