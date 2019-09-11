@@ -11,6 +11,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import Typography from "@material-ui/core/Typography";
 import { ToDoListForm } from "./ToDoListForm";
+import Get from "../../shared/ServerMethods";
 
 /* Define one time method with setTimeout()
 https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout */
@@ -48,12 +49,13 @@ export const ToDoLists = ({ style }) => {
   /* Hook that functions similarly to componentDidMount() */
   useEffect(() => {
     getPersonalTodos().then(setToDoLists);
-    console.log("COMPONENT MOUNT")
+    console.log("COMPONENT MOUNT");
+    Get();
   }, []);
 
   /* Monitor state variables */
-  console.log("All todo lists", toDoLists)
-  console.log("Current list", activeList)
+  console.log("All todo lists", toDoLists);
+  console.log("Current list", activeList);
 
   if (!Object.keys(toDoLists).length) return null;
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
@@ -68,7 +70,14 @@ export const ToDoLists = ({ style }) => {
           </Typography>
           <List>
             {Object.keys(toDoLists).map(key => (
-              <ListItem key={key} button onClick={() => { setActiveList(key); console.log("SET ACTIVE LIST") }}>
+              <ListItem
+                key={key}
+                button
+                onClick={() => {
+                  setActiveList(key);
+                  console.log("SET ACTIVE LIST");
+                }}
+              >
                 <ListItemIcon>
                   <ReceiptIcon />
                 </ListItemIcon>
