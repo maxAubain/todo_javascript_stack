@@ -75,7 +75,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
           {toDoList.title}
         </Typography>
 
-        <form onSubmit={handleSubmit} onChange={handleAutosaveReset} className={classes.form}>
+        <form onBlur={handleSubmit} onChange={handleAutosaveReset} className={classes.form}>
           {todos.map((name, index) => (
             <div key={index} className={classes.todoLine}>
               {/* ToDo list item number */}
