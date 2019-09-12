@@ -10,14 +10,14 @@ import ReceiptIcon from "@material-ui/icons/Receipt";
 import Typography from "@material-ui/core/Typography";
 import { ToDoListForm } from "./ToDoListForm";
 
-const targetPath = "http://localhost:3001"
+const serverPath = "http://localhost:3001"
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const getPersonalTodos = () => {
   return sleep(1000).then(() =>
     axios
-      .get(`${targetPath}/init-todos`)
+      .get(`${serverPath}/init-todos`)
       .then(response => Promise.resolve(response.data))
   );
 };
@@ -26,23 +26,13 @@ export const ToDoLists = ({ style }) => {
   const [toDoLists, setToDoLists] = useState({});
   const [activeList, setActiveList] = useState();
 
-  /* Hook that functions similarly to componentDidMount() */
   useEffect(() => {
     getPersonalTodos().then(setToDoLists);
-    console.log("COMPONENT MOUNT");
   }, []);
 
-  /* Monitor state variables */
-  console.log("All todo lists", toDoLists);
-  console.log("Current list", activeList);
+  if (!Object.keys(toDoLists).length) return null;
 
-  /* This is an oh-shit warning if no todo list is in state.
-  Otherwise save todo list state data to backend. */
-  if (!Object.keys(toDoLists).length) {
-    return null;
-  } else {
-    axios.post(`${targetPath}/todos`, toDoLists)
-  }
+  axios.post(`${targetPath}/todos`, toDoLists)
 
   return (
     <Fragment>
