@@ -10,7 +10,7 @@ const jsonParser = bodyParser.json();
 app.use(cors({ origin: targetPath })); // Enables cross-origin HTTP requests (CORS) with white-listed client address.
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
 
-/* "Database" */
+/* Data storage variables */
 const initTodos = {
   "0000000001": {
     id: "0000000001",
@@ -26,7 +26,7 @@ const initTodos = {
 
 let currentTodos = 0;
 
-/* Server methods */
+/* HTTP request methods */
 app.get("/init-todos", (req, res) => {
   currentTodos == 0 ? res.send(initTodos) : res.send(currentTodos);
 });

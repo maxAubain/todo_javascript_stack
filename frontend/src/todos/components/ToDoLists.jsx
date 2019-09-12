@@ -36,10 +36,13 @@ export const ToDoLists = ({ style }) => {
   console.log("All todo lists", toDoLists);
   console.log("Current list", activeList);
 
-  /* This is an oh-shit warning if no todo list info loads */
-  if (!Object.keys(toDoLists).length) return null;
-
-  axios.post(`${targetPath}/todos`, toDoLists)
+  /* This is an oh-shit warning if no todo list is in state.
+  Otherwise save todo list state data to backend. */
+  if (!Object.keys(toDoLists).length) {
+    return null;
+  } else {
+    axios.post(`${targetPath}/todos`, toDoLists)
+  }
 
   return (
     <Fragment>
