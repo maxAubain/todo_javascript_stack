@@ -52,7 +52,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
           {toDoList.title}
         </Typography>
 
-        <form onSubmit={handleSubmit} className={classes.form}>
+        <form onBlur={handleSubmit} className={classes.form}>
           {todos.map((name, index) => (
             <div key={index} className={classes.todoLine}>
 
