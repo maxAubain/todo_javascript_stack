@@ -58,6 +58,15 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
     console.log("Autosave timer initiated with ID:", autosaveID)
   }
 
+  const handleAutosaveReset = (event) => {
+    event.preventDefault();
+    if (autosaveTimerStart === true) {
+      saved = false;
+      autosaveTimerStart = false;
+      clearTimeout(autosaveID);
+    }
+  }
+
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -66,7 +75,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
           {toDoList.title}
         </Typography>
 
-        <form onSubmit={handleSubmit} className={classes.form}>
+        <form onSubmit={handleSubmit} onChange={handleAutosaveReset} className={classes.form}>
           {todos.map((name, index) => (
             <div key={index} className={classes.todoLine}>
               {/* ToDo list item number */}
