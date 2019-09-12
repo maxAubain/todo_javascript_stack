@@ -34,15 +34,18 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const classes = useStyles();
   const [todos, setTodos] = useState(toDoList.todos);
 
-  /* Updates toDoList using saveToDoList() from props */
   const handleSubmit = event => {
     event.preventDefault();
-    saveToDoList(toDoList.id, { todos });  // saveToDoList() as defined in ToDoLists
-    console.log("SAVED")
+    saveToDoList(toDoList.id, { todos }); // saveToDoList() as defined in ToDoLists
   };
 
   /* Monitor state variable */
-  console.log("Current todos", todos)
+  console.log("Current todos", todos);
+
+  /* Prototype autosave function */
+  const save = () => saveToDoList(toDoList.id, { todos });
+  const autosaveID = setTimeout(save, 1000);
+  console.log(autosaveID)
 
   return (
     <Card className={classes.card}>
@@ -52,10 +55,9 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
           {toDoList.title}
         </Typography>
 
-        <form onBlur={handleSubmit} className={classes.form}>
+        <form onSubmit={handleSubmit} className={classes.form}>
           {todos.map((name, index) => (
             <div key={index} className={classes.todoLine}>
-
               {/* ToDo list item number */}
               <Typography className={classes.standardSpace} variant="title">
                 {index + 1}
@@ -95,7 +97,6 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
           ))}
 
           <CardActions>
-
             {/* Add ToDo button, on click add new empty ToDo form field */}
             <Button
               type="button"
@@ -111,9 +112,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
             <Button type="submit" variant="contained" color="primary">
               Save
             </Button>
-
           </CardActions>
-
         </form>
       </CardContent>
     </Card>
