@@ -30,90 +30,83 @@ const useStyles = makeStyles({
   }
 });
 
+let autosaveTimerStart = false;
+let autosaveID;
+const TIMER = 1000;
+
 export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const classes = useStyles();
   const [todos, setTodos] = useState(toDoList.todos);
 
-  /* Updates toDoList using saveToDoList() from props */
-  const handleSubmit = event => {
-    event.preventDefault();
-    saveToDoList(toDoList.id, { todos });  // saveToDoList() as defined in ToDoLists
-    console.log("SAVED")
+  const save = () => {
+    saveToDoList(toDoList.id, { todos });
   };
 
-  /* Monitor state variable */
-  console.log("Current todos", todos)
+  const handleAutosaveReset = () => {
+    if (autosaveTimerStart === true) {
+      autosaveTimerStart = false;
+      clearTimeout(autosaveID);
+    }
+  };
+
+  if (autosaveTimerStart === false) {
+    autosaveID = setTimeout(save, TIMER);
+    autosaveTimerStart = true;
+  }
 
   return (
     <Card className={classes.card}>
       <CardContent>
-        {/* ToDo list form label "First list", "Second list" */}
         <Typography variant="headline" component="h2">
           {toDoList.title}
         </Typography>
 
-        <form onSubmit={handleSubmit} className={classes.form}>
+        <form onChange={handleAutosaveReset} className={classes.form}>
           {todos.map((name, index) => (
             <div key={index} className={classes.todoLine}>
-
-              {/* ToDo list item number */}
               <Typography className={classes.standardSpace} variant="title">
                 {index + 1}
               </Typography>
-
-              {/* ToDo list input field */}
               <TextField
                 label="What to do?"
                 value={name}
                 onChange={event => {
                   setTodos([
-                    // immutable update
                     ...todos.slice(0, index),
-                    event.target.value, // inserts new todo at array location 'index'
+                    event.target.value,
                     ...todos.slice(index + 1)
                   ]);
                 }}
                 className={classes.textField}
               />
-
-              {/* Delete button */}
               <Button
                 size="small"
                 color="secondary"
                 className={classes.standardSpace}
                 onClick={() => {
                   setTodos([
-                    // immutable delete
-                    ...todos.slice(0, index), // deletes todo at array location 'index'
+                    ...todos.slice(0, index),
                     ...todos.slice(index + 1)
                   ]);
+                  handleAutosaveReset();
                 }}
               >
                 <DeleteIcon />
               </Button>
             </div>
           ))}
-
           <CardActions>
-
-            {/* Add ToDo button, on click add new empty ToDo form field */}
             <Button
               type="button"
               color="primary"
               onClick={() => {
                 setTodos([...todos, ""]);
+                handleAutosaveReset();
               }}
             >
               Add Todo <AddIcon />
             </Button>
-
-            {/* Save button, submits form info and triggers handleSubmit() */}
-            <Button type="submit" variant="contained" color="primary">
-              Save
-            </Button>
-
           </CardActions>
-
         </form>
       </CardContent>
     </Card>
