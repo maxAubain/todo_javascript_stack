@@ -30,22 +30,33 @@ const useStyles = makeStyles({
   }
 });
 
+let saved = false
+let autosaveTimerStart = false
+
 export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const classes = useStyles();
   const [todos, setTodos] = useState(toDoList.todos);
+  console.log("Are todos saved by render?", saved)
+  console.log("Has autosave timer initiated by render", autosaveTimerStart)
 
   const handleSubmit = event => {
     event.preventDefault();
     saveToDoList(toDoList.id, { todos }); // saveToDoList() as defined in ToDoLists
   };
 
-  /* Monitor state variable */
-  console.log("Current todos", todos);
-
   /* Prototype autosave function */
-  const save = () => saveToDoList(toDoList.id, { todos });
-  const autosaveID = setTimeout(save, 1000);
-  console.log(autosaveID)
+  const save = () => {
+    saveToDoList(toDoList.id, { todos });
+    saved = true
+    console.log("Todos have saved", saved)
+  }
+
+  let autosaveID
+  if (saved === false && autosaveTimerStart === false) {
+    autosaveID = setTimeout(save, 5000);
+    autosaveTimerStart = true;
+    console.log("Autosave timer initiated with ID:", autosaveID)
+  }
 
   return (
     <Card className={classes.card}>

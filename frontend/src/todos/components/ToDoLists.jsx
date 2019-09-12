@@ -33,7 +33,7 @@ export const ToDoLists = ({ style }) => {
   if (!Object.keys(toDoLists).length) return null;
 
   postTodos(serverPath, toDoLists);
-  console.log("SAVED")
+  //console.log("SAVED")
 
   return (
     <Fragment>
