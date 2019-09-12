@@ -103,6 +103,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                 setTodos([...todos, ""]);
                 handleAutosaveReset();
               }}
+              id="add-todo"
             >
               Add Todo <AddIcon />
             </Button>
