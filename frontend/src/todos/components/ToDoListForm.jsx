@@ -30,7 +30,6 @@ const useStyles = makeStyles({
   }
 });
 
-let saved = false;
 let autosaveTimerStart = false;
 let autosaveID;
 const TIMER = 1000;
@@ -38,27 +37,21 @@ const TIMER = 1000;
 export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const classes = useStyles();
   const [todos, setTodos] = useState(toDoList.todos);
-  console.log("Are todos saved by render?", saved);
-  console.log("Has autosave timer initiated by render", autosaveTimerStart);
 
   const save = () => {
     saveToDoList(toDoList.id, { todos });
-    saved = true;
-    console.log("Todos have saved", saved);
   };
 
   const handleAutosaveReset = () => {
     if (autosaveTimerStart === true) {
-      saved = false;
       autosaveTimerStart = false;
       clearTimeout(autosaveID);
     }
   };
 
-  if (saved === false && autosaveTimerStart === false) {
+  if (autosaveTimerStart === false) {
     autosaveID = setTimeout(save, TIMER);
     autosaveTimerStart = true;
-    console.log("Autosave timer initiated with ID:", autosaveID);
   }
 
   return (
