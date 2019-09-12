@@ -39,11 +39,6 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   console.log("Are todos saved by render?", saved)
   console.log("Has autosave timer initiated by render", autosaveTimerStart)
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    saveToDoList(toDoList.id, { todos }); // saveToDoList() as defined in ToDoLists
-  };
-
   /* Prototype autosave function */
   const save = () => {
     saveToDoList(toDoList.id, { todos });
@@ -53,13 +48,12 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
 
   let autosaveID
   if (saved === false && autosaveTimerStart === false) {
-    autosaveID = setTimeout(save, 5000);
+    autosaveID = setTimeout(save, 1000);
     autosaveTimerStart = true;
     console.log("Autosave timer initiated with ID:", autosaveID)
   }
 
-  const handleAutosaveReset = (event) => {
-    event.preventDefault();
+  const handleAutosaveReset = () => {
     if (autosaveTimerStart === true) {
       saved = false;
       autosaveTimerStart = false;
@@ -75,7 +69,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
           {toDoList.title}
         </Typography>
 
-        <form onBlur={handleSubmit} onChange={handleAutosaveReset} className={classes.form}>
+        <form onChange={handleAutosaveReset} className={classes.form}>
           {todos.map((name, index) => (
             <div key={index} className={classes.todoLine}>
               {/* ToDo list item number */}
@@ -109,6 +103,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     ...todos.slice(0, index), // deletes todo at array location 'index'
                     ...todos.slice(index + 1)
                   ]);
+                  handleAutosaveReset();
                 }}
               >
                 <DeleteIcon />
@@ -123,14 +118,10 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
               color="primary"
               onClick={() => {
                 setTodos([...todos, ""]);
+                handleAutosaveReset();
               }}
             >
               Add Todo <AddIcon />
-            </Button>
-
-            {/* Save button, submits form info and triggers handleSubmit() */}
-            <Button type="submit" variant="contained" color="primary">
-              Save
             </Button>
           </CardActions>
         </form>
