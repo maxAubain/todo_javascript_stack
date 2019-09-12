@@ -1,74 +1,91 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ReceiptIcon from '@material-ui/icons/Receipt'
-import Typography from '@material-ui/core/Typography'
-import { ToDoListForm } from './ToDoListForm'
+import React, { Fragment, useState, useEffect } from "react";
+import axios from "axios";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ReceiptIcon from "@material-ui/icons/Receipt";
+import Typography from "@material-ui/core/Typography";
+import { ToDoListForm } from "./ToDoListForm";
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+const targetPath = "http://localhost:3001"
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const getPersonalTodos = () => {
-  return sleep(1000).then(() => Promise.resolve({
-    '0000000001': {
-      id: '0000000001',
-      title: 'First List',
-      todos: ['First todo of first list!']
-    },
-    '0000000002': {
-      id: '0000000002',
-      title: 'Second List',
-      todos: ['First todo of second list!']
-    }
-  }))
-}
+  return sleep(1000).then(() =>
+    axios
+      .get(`${targetPath}/init-todos`)
+      .then(response => Promise.resolve(response.data))
+  );
+};
 
 export const ToDoLists = ({ style }) => {
-  const [toDoLists, setToDoLists] = useState({})
-  const [activeList, setActiveList] = useState()
+  const [toDoLists, setToDoLists] = useState({});
+  const [activeList, setActiveList] = useState();
 
+  /* Hook that functions similarly to componentDidMount() */
   useEffect(() => {
-    getPersonalTodos()
-      .then(setToDoLists)
-  }, [])
+    getPersonalTodos().then(setToDoLists);
+    console.log("COMPONENT MOUNT");
+  }, []);
 
-  if (!Object.keys(toDoLists).length) return null
-  return <Fragment>
-    <Card style={style}>
-      <CardContent>
-        <Typography
-          variant='headline'
-          component='h2'
-        >
-          My ToDo Lists
-        </Typography>
-        <List>
-          {Object.keys(toDoLists).map((key) => <ListItem
-            key={key}
-            button
-            onClick={() => setActiveList(key)}
-          >
-            <ListItemIcon>
-              <ReceiptIcon />
-            </ListItemIcon>
-            <ListItemText primary={toDoLists[key].title} />
-          </ListItem>)}
-        </List>
-      </CardContent>
-    </Card>
-    {toDoLists[activeList] && <ToDoListForm
-      key={activeList} // use key to make React recreate component to reset internal state
-      toDoList={toDoLists[activeList]}
-      saveToDoList={(id, { todos }) => {
-        const listToUpdate = toDoLists[id]
-        setToDoLists({
-          ...toDoLists,
-          [id]: { ...listToUpdate, todos }
-        })
-      }}
-    />}
-  </Fragment>
-}
+  /* Monitor state variables */
+  console.log("All todo lists", toDoLists);
+  console.log("Current list", activeList);
+
+  /* This is an oh-shit warning if no todo list is in state.
+  Otherwise save todo list state data to backend. */
+  if (!Object.keys(toDoLists).length) {
+    return null;
+  } else {
+    axios.post(`${targetPath}/todos`, toDoLists)
+  }
+
+  return (
+    <Fragment>
+      {/* Top section with My ToDo Lists, and selection of First and Second List */}
+      <Card style={style}>
+        <CardContent>
+          <Typography variant="headline" component="h2">
+            My ToDo Lists
+          </Typography>
+          <List>
+            {Object.keys(toDoLists).map(key => (
+              <ListItem
+                key={key}
+                button
+                onClick={() => {
+                  setActiveList(key);
+                  console.log("SET ACTIVE LIST");
+                }}
+              >
+                <ListItemIcon>
+                  <ReceiptIcon />
+                </ListItemIcon>
+                <ListItemText primary={toDoLists[key].title} />
+              </ListItem>
+            ))}
+          </List>
+        </CardContent>
+      </Card>
+
+      {/* ToDoList form which appears on clicking above list */}
+      {toDoLists[activeList] && (
+        <ToDoListForm
+          key={activeList} // use key to make React recreate component to reset internal state
+          toDoList={toDoLists[activeList]}
+          saveToDoList={(id, { todos }) => {
+            const listToUpdate = toDoLists[id];
+            setToDoLists({
+              ...toDoLists,
+              [id]: { ...listToUpdate, todos }
+            });
+          }}
+        />
+      )}
+    </Fragment>
+  );
+};
