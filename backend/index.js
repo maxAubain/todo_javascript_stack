@@ -27,10 +27,10 @@ const initTodos = {
 let currentTodos = 0;
 
 /* HTTP request methods */
-app.get("/init-todos", (req, res) => {
+app.get("/", (req, res) => {
   currentTodos == 0 ? res.send(initTodos) : res.send(currentTodos);
 });
 
-app.post("/todos", jsonParser, (req, res) => {
+app.post("/", jsonParser, (req, res) => {
   currentTodos = req.body;
 });

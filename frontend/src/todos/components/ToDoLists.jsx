@@ -10,14 +10,14 @@ import ReceiptIcon from "@material-ui/icons/Receipt";
 import Typography from "@material-ui/core/Typography";
 import { ToDoListForm } from "./ToDoListForm";
 
-const serverPath = "http://localhost:3001"
+const serverPath = "http://localhost:3001/"
+const postTodos = (serverPath, toDoLists) => axios.post(serverPath, toDoLists)
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
 const getPersonalTodos = () => {
   return sleep(1000).then(() =>
     axios
-      .get(`${serverPath}/init-todos`)
+      .get(serverPath)
       .then(response => Promise.resolve(response.data))
   );
 };
@@ -32,7 +32,7 @@ export const ToDoLists = ({ style }) => {
 
   if (!Object.keys(toDoLists).length) return null;
 
-  axios.post(`${targetPath}/todos`, toDoLists)
+  postTodos(serverPath, toDoLists);
 
   return (
     <Fragment>
