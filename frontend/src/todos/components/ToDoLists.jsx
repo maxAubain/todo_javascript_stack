@@ -38,7 +38,7 @@ export const ToDoLists = ({ style }) => {
     <Fragment>
       <Card style={style}>
         <CardContent>
-          <Typography variant="headline" component="h2" id="headline">
+          <Typography variant="headline" component="h2">
             My ToDo Lists
           </Typography>
           <List>
@@ -49,7 +49,6 @@ export const ToDoLists = ({ style }) => {
                 onClick={() => {
                   setActiveList(key);
                 }}
-                id={key}
               >
                 <ListItemIcon>
                   <ReceiptIcon />
