@@ -67,14 +67,14 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
         </Typography>
 
         <form onChange={handleAutosaveReset} className={classes.form}>
-          {todos.map((name, index) => (
+          {todos.map((todo, index) => (
             <div key={index} className={classes.todoLine}>
               <Typography className={classes.standardSpace} variant="title">
                 {index + 1}
               </Typography>
               <TextField
                 label="What to do?"
-                value={name}
+                value={todo.item}
                 onChange={event => {
                   setTodos([
                     ...todos.slice(0, index),
@@ -85,7 +85,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                 className={classes.textFieldFinished}
               />
               <Checkbox
-                checked={false}
+                checked={todo.finished}
                 onChange={() => {}}
                 color="primary"
               />
