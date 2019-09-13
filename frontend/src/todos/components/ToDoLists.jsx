@@ -33,11 +33,9 @@ export const ToDoLists = ({ style }) => {
   if (!Object.keys(toDoLists).length) return null;
 
   postTodos(serverPath, toDoLists);
-  //console.log("SAVED")
 
   return (
     <Fragment>
-      {/* Top section with My ToDo Lists, and selection of First and Second List */}
       <Card style={style}>
         <CardContent>
           <Typography variant="headline" component="h2">
@@ -50,23 +48,21 @@ export const ToDoLists = ({ style }) => {
                 button
                 onClick={() => {
                   setActiveList(key);
-                  console.log("SET ACTIVE LIST");
                 }}
               >
                 <ListItemIcon>
                   <ReceiptIcon />
                 </ListItemIcon>
-                <ListItemText primary={toDoLists[key].title} />
+                <ListItemText primary={toDoLists[key].title}/>
               </ListItem>
             ))}
           </List>
         </CardContent>
       </Card>
 
-      {/* ToDoList form which appears on clicking above list */}
       {toDoLists[activeList] && (
         <ToDoListForm
-          key={activeList} // use key to make React recreate component to reset internal state
+          key={activeList}
           toDoList={toDoLists[activeList]}
           saveToDoList={(id, { todos }) => {
             const listToUpdate = toDoLists[id];
