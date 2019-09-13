@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
+import Checkbox from "@material-ui/core/Checkbox";
 import { TextField } from "../../shared/FormFields";
 
 const useStyles = makeStyles({
@@ -78,6 +79,11 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                   ]);
                 }}
                 className={classes.textField}
+              />
+              <Checkbox
+                checked={false}
+                onChange={() => {}}
+                color="primary"
               />
               <Button
                 size="small"
