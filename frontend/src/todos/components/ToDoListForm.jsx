@@ -18,8 +18,12 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center"
   },
-  textField: {
+  textFieldUnfinished: {
     flexGrow: 1
+  },
+  textFieldFinished: {
+    flexGrow: 1,
+    backgroundColor: "lightgrey"
   },
   standardSpace: {
     margin: "8px"
@@ -78,7 +82,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     ...todos.slice(index + 1)
                   ]);
                 }}
-                className={classes.textField}
+                className={classes.textFieldFinished}
               />
               <Checkbox
                 checked={false}
