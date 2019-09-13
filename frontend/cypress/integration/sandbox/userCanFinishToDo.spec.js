@@ -8,32 +8,31 @@ describe("User can finish todo list items", () => {
   });
 
   const index = 0; // Todo list item index
-  const TIMER = 1000;  // Autosave wait time
+  const TIMER = 1000; // Autosave wait time
 
-  it("User can finish todo list item by marking checkbox", () => {
+  it("Todo list item starts unfinished", () => {
     cy.findByText("First List").click();
 
-    cy.get("input")
+    cy.get('[type="checkbox"]')
       .eq(index)
-      .then($inpt => {
-        expect($inpt).to.have.class("textFieldUnfinished");
-
-        cy.get('[type="checkbox"]')
-          .eq(index)
-          .check();
-        expect($inpt).to.have.class("textFieldFinished");
-      });
+      .should("have.value", "false");
   });
 
-  it("User can save finished todo list item", () => {
+  it("User can finish todo list item and save", () => {
     cy.get('[type="checkbox"]')
       .eq(index)
       .check();
     cy.wait(TIMER);
-
-    cy.findByText("Second List").click();
-    cy.findByText("First List").click();
-
-    cy.get("input").eq(index).should("have.class", "textFieldFinished")
+    
+    cy.get('[type="checkbox"]')
+      .eq(index)
+      .should("have.value", "true");
+    
+      cy.findByText("Second List").click();
+      cy.findByText("First List").click();
+  
+      cy.get('[type="checkbox"]')
+        .eq(index)
+        .should("have.value", "true");
   });
 });

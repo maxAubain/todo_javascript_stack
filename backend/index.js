@@ -16,7 +16,7 @@ const initTodos = {
     id: "0000000001",
     title: "First List",
     todos: ["First todo of first list!"],
-    finished: [true]
+    finished: [false]
   },
   "0000000002": {
     id: "0000000002",

@@ -18,12 +18,8 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center"
   },
-  textFieldUnfinished: {
+  textField: {
     flexGrow: 1
-  },
-  textFieldFinished: {
-    flexGrow: 1,
-    backgroundColor: "lightgrey"
   },
   standardSpace: {
     margin: "8px"
@@ -42,7 +38,7 @@ const TIMER = 1000;
 export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const classes = useStyles();
   const [todos, setTodos] = useState(toDoList.todos);
-  const [finished, setFinished] = useState(toDoList.finished)
+  const [finished, setFinished] = useState(toDoList.finished);
 
   const save = () => {
     saveToDoList(toDoList.id, { todos, finished });
@@ -83,10 +79,12 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     ...todos.slice(index + 1)
                   ]);
                 }}
-                className={classes.textFieldFinished}
+                className={classes.textField}
               />
+              <p>Finished?</p>
               <Checkbox
                 checked={finished[index]}
+                value={`${finished[index]}`}
                 onChange={() => {
                   setFinished([
                     ...finished.slice(0, index),
@@ -118,7 +116,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
               color="primary"
               onClick={() => {
                 setTodos([...todos, ""]);
-                setFinished([...finished, false])
+                setFinished([...finished, false]);
                 handleAutosaveReset();
               }}
             >
