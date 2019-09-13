@@ -15,22 +15,12 @@ const initTodos = {
   "0000000001": {
     id: "0000000001",
     title: "First List",
-    todos: [
-      {
-        item: "First todo of first list!",
-        finished: false
-      }
-    ]
+    todos: ["First todo of first list!"]
   },
   "0000000002": {
     id: "0000000002",
     title: "Second List",
-    todos: [
-      {
-        item: "First todo of second list!",
-        finished: false
-      }
-    ]
+    todos: ["First todo of second list!"]
   }
 };
 
