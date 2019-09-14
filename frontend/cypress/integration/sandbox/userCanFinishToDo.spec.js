@@ -21,18 +21,41 @@ describe("User can finish todo list items", () => {
   it("User can finish todo list item and save", () => {
     cy.get('[type="checkbox"]')
       .eq(index)
-      .check();
+      .click();
     cy.wait(TIMER);
-    
+
     cy.get('[type="checkbox"]')
       .eq(index)
       .should("have.value", "true");
-    
-      cy.findByText("Second List").click();
-      cy.findByText("First List").click();
-  
-      cy.get('[type="checkbox"]')
-        .eq(index)
-        .should("have.value", "true");
+
+    cy.get('[type="checkbox"]')
+      .eq(index)
+      .should("have.value", "true");
+  });
+
+  it("User can unfinish todo list item and save", () => {
+    cy.get('[type="checkbox"]')
+      .eq(index)
+      .click();
+    cy.wait(TIMER);
+
+    cy.get('[type="checkbox"]')
+      .eq(index)
+      .should("have.value", "false");
+  });
+
+  it("User can delete finished todo list item and save", () => {
+    cy.get('[type="checkbox"]')
+      .eq(index)
+      .click();
+    cy.get('button')
+      .eq(0)
+      .click();
+    cy.wait(TIMER);
+
+    cy.findByText("Add Todo").click();
+    cy.get('[type="checkbox"]')
+      .eq(index)
+      .should("have.value", "false");
   });
 });

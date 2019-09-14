@@ -103,6 +103,10 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     ...todos.slice(0, index),
                     ...todos.slice(index + 1)
                   ]);
+                  setFinished([
+                    ...finished.slice(0, index),
+                    ...todos.slice(index + 1)
+                  ]);
                   handleAutosaveReset();
                 }}
               >
