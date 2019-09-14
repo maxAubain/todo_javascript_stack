@@ -24,9 +24,10 @@ describe("User can save todo lists", () => {
 
   it("Saves new content to added todo item in the first list", () => {
     const itemText = "Second todo item";
+    const index = 2; // to find current input field
 
     cy.get("input")
-      .eq(1)
+      .eq(index)
       .type(itemText);
     cy.wait(TIMER);
 
@@ -34,7 +35,7 @@ describe("User can save todo lists", () => {
     cy.findByText("First List").click();
 
     cy.get("input")
-      .eq(1)
+      .eq(index)
       .should("have.value", itemText);
   });
 });

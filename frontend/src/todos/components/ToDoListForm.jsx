@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
+import Checkbox from "@material-ui/core/Checkbox";
 import { TextField } from "../../shared/FormFields";
 
 const useStyles = makeStyles({
@@ -37,9 +38,10 @@ const TIMER = 1000;
 export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const classes = useStyles();
   const [todos, setTodos] = useState(toDoList.todos);
+  const [finished, setFinished] = useState(toDoList.finished);
 
   const save = () => {
-    saveToDoList(toDoList.id, { todos });
+    saveToDoList(toDoList.id, { todos, finished });
   };
 
   const handleAutosaveReset = () => {
@@ -62,14 +64,14 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
         </Typography>
 
         <form onChange={handleAutosaveReset} className={classes.form}>
-          {todos.map((name, index) => (
+          {todos.map((todo, index) => (
             <div key={index} className={classes.todoLine}>
               <Typography className={classes.standardSpace} variant="title">
                 {index + 1}
               </Typography>
               <TextField
                 label="What to do?"
-                value={name}
+                value={todo}
                 onChange={event => {
                   setTodos([
                     ...todos.slice(0, index),
@@ -79,6 +81,19 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                 }}
                 className={classes.textField}
               />
+              <p>Finished?</p>
+              <Checkbox
+                checked={finished[index]}
+                value={`${finished[index]}`}
+                onChange={() => {
+                  setFinished([
+                    ...finished.slice(0, index),
+                    !finished[index],
+                    ...finished.slice(index + 1)
+                  ]);
+                }}
+                color="primary"
+              />
               <Button
                 size="small"
                 color="secondary"
@@ -86,6 +101,10 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                 onClick={() => {
                   setTodos([
                     ...todos.slice(0, index),
+                    ...todos.slice(index + 1)
+                  ]);
+                  setFinished([
+                    ...finished.slice(0, index),
                     ...todos.slice(index + 1)
                   ]);
                   handleAutosaveReset();
@@ -101,6 +120,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
               color="primary"
               onClick={() => {
                 setTodos([...todos, ""]);
+                setFinished([...finished, false]);
                 handleAutosaveReset();
               }}
             >
