@@ -9,6 +9,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
 import Checkbox from "@material-ui/core/Checkbox";
 import { TextField } from "../../shared/FormFields";
+import { ToDoItemDaysRemaining } from "./ToDoItemDaysRemaining";
 
 const useStyles = makeStyles({
   card: {
@@ -45,7 +46,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const classes = useStyles();
   const [todos, setTodos] = useState(toDoList.todos);
   const [finished, setFinished] = useState(toDoList.finished);
-  const [dueDates, setDueDate] = useState(toDoList.dueDates)
+  const [dueDates, setDueDate] = useState(toDoList.dueDates);
 
   const save = () => {
     saveToDoList(toDoList.id, { todos, finished, dueDates });
@@ -102,7 +103,10 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                 }}
                 className={classes.dateField}
               />
-              <p>Finished?</p>
+              <ToDoItemDaysRemaining dueDate={dueDates[index]} />
+              <Typography className={classes.standardSpace}>
+                Finished?
+              </Typography>
               <Checkbox
                 checked={finished[index]}
                 value={`${finished[index]}`}
