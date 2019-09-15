@@ -103,7 +103,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                 }}
                 className={classes.dateField}
               />
-              <ToDoItemDaysRemaining dueDate={dueDates[index]} />
+              <ToDoItemDaysRemaining dueDate={dueDates[index]} finished={finished[index]}/>
               <Typography className={classes.standardSpace}>
                 Finished?
               </Typography>

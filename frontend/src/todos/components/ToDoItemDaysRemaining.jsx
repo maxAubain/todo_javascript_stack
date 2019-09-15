@@ -9,6 +9,13 @@ const useStyles = makeStyles({
     width: 150,
     textAlign: "center"
   },
+  finished: {
+    marginLeft: "1rem",
+    marginRight: "1rem",
+    width: 150,
+    textAlign: "center",
+    color: "blue"
+  },
   manyDaysRemaining: {
     marginLeft: "1rem",
     marginRight: "1rem",
@@ -32,7 +39,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const ToDoItemDaysRemaining = ({ dueDate }) => {
+export const ToDoItemDaysRemaining = ({ dueDate, finished }) => {
   const classes = useStyles();
 
   const dueDateObj = new Date(dueDate);
@@ -41,8 +48,10 @@ export const ToDoItemDaysRemaining = ({ dueDate }) => {
   const msToDay = 1000 * 60 * 60 * 24;
   const daysRemaining = Math.floor((dueDateObj - todaysDateObj) / msToDay);
 
-  const handleDaysRemaining = daysRemaining => {
-    if (isNaN(daysRemaining)) {
+  const handleDaysRemaining = (daysRemaining, finished) => {
+    if (finished === true) {
+      return "Item complete";
+    } else if (isNaN(daysRemaining)) {
       return "Please set a due date";
     } else if (daysRemaining >= 0) {
       return `Days remaining: ${daysRemaining}`;
@@ -51,8 +60,10 @@ export const ToDoItemDaysRemaining = ({ dueDate }) => {
     }
   };
 
-  const handleClassName = (daysRemaining, classes) => {
-    if (isNaN(daysRemaining)) {
+  const handleClassName = (daysRemaining, finished, classes) => {
+    if (finished === true) {
+      return classes.finished;
+    } else if (isNaN(daysRemaining)) {
       return classes.undefined;
     } else if (daysRemaining > 3) {
       return classes.manyDaysRemaining;
@@ -64,8 +75,8 @@ export const ToDoItemDaysRemaining = ({ dueDate }) => {
   };
 
   return (
-    <Typography className={handleClassName(daysRemaining, classes)}>
-      {handleDaysRemaining(daysRemaining)}
+    <Typography className={handleClassName(daysRemaining, finished, classes)}>
+      {handleDaysRemaining(daysRemaining, finished)}
     </Typography>
   );
 };
