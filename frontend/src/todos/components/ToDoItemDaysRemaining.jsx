@@ -3,6 +3,12 @@ import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles({
+  undefined: {
+    marginLeft: "1rem",
+    marginRight: "1rem",
+    width: 150,
+    textAlign: "center"
+  },
   manyDaysRemaining: {
     marginLeft: "1rem",
     marginRight: "1rem",
@@ -36,11 +42,19 @@ export const ToDoItemDaysRemaining = ({ dueDate }) => {
   const daysRemaining = Math.floor((dueDateObj - todaysDateObj) / msToDay);
 
   const handleDaysRemaining = daysRemaining => {
-    return daysRemaining < 0 ? "Overdue" : `Days remaining: ${daysRemaining}`;
+    if (isNaN(daysRemaining)) {
+      return "Please set a due date";
+    } else if (daysRemaining >= 0) {
+      return `Days remaining: ${daysRemaining}`;
+    } else {
+      return "Overdue";
+    }
   };
 
   const handleClassName = (daysRemaining, classes) => {
-    if (daysRemaining > 3) {
+    if (isNaN(daysRemaining)) {
+      return classes.undefined;
+    } else if (daysRemaining > 3) {
       return classes.manyDaysRemaining;
     } else if (daysRemaining <= 3 && daysRemaining >= 0) {
       return classes.threeDaysRemaining;
