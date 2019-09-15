@@ -69,8 +69,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
         <Typography variant="headline" component="h2">
           {toDoList.title}
         </Typography>
-
-        <form onChange={handleAutosaveReset} className={classes.form}>
+        <form className={classes.form}>
           {todos.map((todo, index) => (
             <div key={index} className={classes.todoLine}>
               <Typography className={classes.standardSpace} variant="title">
@@ -85,6 +84,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     event.target.value,
                     ...todos.slice(index + 1)
                   ]);
+                  handleAutosaveReset();
                 }}
                 className={classes.textField}
               />
@@ -112,6 +112,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     !finished[index],
                     ...finished.slice(index + 1)
                   ]);
+                  handleAutosaveReset();
                 }}
                 color="primary"
               />
@@ -147,7 +148,6 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                 setTodos([...todos, ""]);
                 setFinished([...finished, false]);
                 setDueDate([...dueDates, "mm-dd-yyyy"]);
-                console.log(dueDates)
                 handleAutosaveReset();
               }}
             >
