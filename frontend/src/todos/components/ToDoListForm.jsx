@@ -16,7 +16,8 @@ const useStyles = makeStyles({
   },
   todoLine: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    margin: "8px"
   },
   textField: {
     flexGrow: 1
@@ -145,7 +146,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
               onClick={() => {
                 setTodos([...todos, ""]);
                 setFinished([...finished, false]);
-                setDueDate([...dueDates, "2019-01-01"]);
+                setDueDate([...dueDates, "mm-dd-yyyy"]);
                 console.log(dueDates)
                 handleAutosaveReset();
               }}
