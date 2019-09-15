@@ -24,7 +24,7 @@ describe("User can save todo lists", () => {
 
   it("Saves new content to added todo item in the first list", () => {
     const itemText = "Second todo item";
-    const index = 2; // to find current input field
+    const index = 3; // to find current input field
 
     cy.get("input")
       .eq(index)
