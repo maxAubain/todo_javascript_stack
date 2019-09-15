@@ -64,11 +64,11 @@ export const ToDoLists = ({ style }) => {
         <ToDoListForm
           key={activeList}
           toDoList={toDoLists[activeList]}
-          saveToDoList={(id, { todos, finished }) => {
+          saveToDoList={(id, { todos, finished, dueDates }) => {
             const listToUpdate = toDoLists[id];
             setToDoLists({
               ...toDoLists,
-              [id]: { ...listToUpdate, todos, finished }
+              [id]: { ...listToUpdate, todos, finished, dueDates }
             });
           }}
         />

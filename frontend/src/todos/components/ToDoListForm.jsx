@@ -21,6 +21,11 @@ const useStyles = makeStyles({
   textField: {
     flexGrow: 1
   },
+  dateField: {
+    marginLeft: "1rem",
+    marginRight: "1rem",
+    width: 150
+  },
   standardSpace: {
     margin: "8px"
   },
@@ -39,9 +44,10 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const classes = useStyles();
   const [todos, setTodos] = useState(toDoList.todos);
   const [finished, setFinished] = useState(toDoList.finished);
+  const [dueDates, setDueDate] = useState(toDoList.dueDates)
 
   const save = () => {
-    saveToDoList(toDoList.id, { todos, finished });
+    saveToDoList(toDoList.id, { todos, finished, dueDates });
   };
 
   const handleAutosaveReset = () => {
@@ -81,6 +87,20 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                 }}
                 className={classes.textField}
               />
+              <TextField
+                label="Due date?"
+                type="date"
+                value={dueDates[index]}
+                onChange={event => {
+                  setDueDate([
+                    ...dueDates.slice(0, index),
+                    event.target.value,
+                    ...dueDates.slice(index + 1)
+                  ]);
+                  handleAutosaveReset();
+                }}
+                className={classes.dateField}
+              />
               <p>Finished?</p>
               <Checkbox
                 checked={finished[index]}
@@ -105,7 +125,11 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                   ]);
                   setFinished([
                     ...finished.slice(0, index),
-                    ...todos.slice(index + 1)
+                    ...finished.slice(index + 1)
+                  ]);
+                  setDueDate([
+                    ...dueDates.slice(0, index),
+                    ...dueDates.slice(index + 1)
                   ]);
                   handleAutosaveReset();
                 }}
@@ -121,6 +145,8 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
               onClick={() => {
                 setTodos([...todos, ""]);
                 setFinished([...finished, false]);
+                setDueDate([...dueDates, "2019-01-01"]);
+                console.log(dueDates)
                 handleAutosaveReset();
               }}
             >
