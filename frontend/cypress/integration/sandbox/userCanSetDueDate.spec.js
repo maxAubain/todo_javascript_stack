@@ -3,16 +3,21 @@ describe("", () => {
     cy.visit("http://localhost:3000");
   });
 
-  const index = 0; // input array index
+  it("User can see due date prompt, set due date, and check item complete", () => {
+    cy.findByText("First List").click();
 
-  it("User can choose due date", () => {
-    cy.get(/* reference to date picker */)
-      .eq(index)
-      .select(/* date */);
-  });
+    cy.findByText("Please set a due date").should("exist");
 
-  it("User can see due date time remaining", () => {
-    cy.get(/* reference time-remaining span */)
-    .should("contain", /* ßtime-remaining */)
+    cy.get("input")
+      .eq(1)
+      .type("2021-10-11");
+
+    cy.findByText("Please set a due date").should("not.exist");
+
+    cy.get('[type="checkbox"]')
+      .eq(0)
+      .click();
+
+    cy.findByText("Item complete").should("exist");
   });
 });
