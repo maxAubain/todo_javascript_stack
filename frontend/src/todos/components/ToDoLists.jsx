@@ -10,15 +10,13 @@ import ReceiptIcon from "@material-ui/icons/Receipt";
 import Typography from "@material-ui/core/Typography";
 import { ToDoListForm } from "./ToDoListForm";
 
-const serverPath = "http://localhost:3001/"
-const postTodos = (serverPath, toDoLists) => axios.post(serverPath, toDoLists)
+const serverPath = "http://localhost:3001/";
+const postTodos = (serverPath, toDoLists) => axios.post(serverPath, toDoLists);
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const getPersonalTodos = () => {
   return sleep(1000).then(() =>
-    axios
-      .get(serverPath)
-      .then(response => Promise.resolve(response.data))
+    axios.get(serverPath).then(response => Promise.resolve(response.data))
   );
 };
 
@@ -53,7 +51,7 @@ export const ToDoLists = ({ style }) => {
                 <ListItemIcon>
                   <ReceiptIcon />
                 </ListItemIcon>
-                <ListItemText primary={toDoLists[key].title}/>
+                <ListItemText primary={toDoLists[key].title} />
               </ListItem>
             ))}
           </List>
@@ -64,11 +62,11 @@ export const ToDoLists = ({ style }) => {
         <ToDoListForm
           key={activeList}
           toDoList={toDoLists[activeList]}
-          saveToDoList={(id, { todos, finished }) => {
+          saveToDoList={(id, { todos, finished, dueDates }) => {
             const listToUpdate = toDoLists[id];
             setToDoLists({
               ...toDoLists,
-              [id]: { ...listToUpdate, todos, finished }
+              [id]: { ...listToUpdate, todos, finished, dueDates }
             });
           }}
         />

@@ -9,6 +9,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
 import Checkbox from "@material-ui/core/Checkbox";
 import { TextField } from "../../shared/FormFields";
+import { ToDoItemStatusMessage } from "./ToDoItemStatusMessage";
 
 const useStyles = makeStyles({
   card: {
@@ -16,10 +17,16 @@ const useStyles = makeStyles({
   },
   todoLine: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    margin: "8px"
   },
   textField: {
     flexGrow: 1
+  },
+  dateField: {
+    marginLeft: "1rem",
+    marginRight: "1rem",
+    width: 150
   },
   standardSpace: {
     margin: "8px"
@@ -39,9 +46,10 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const classes = useStyles();
   const [todos, setTodos] = useState(toDoList.todos);
   const [finished, setFinished] = useState(toDoList.finished);
+  const [dueDates, setDueDate] = useState(toDoList.dueDates);
 
   const save = () => {
-    saveToDoList(toDoList.id, { todos, finished });
+    saveToDoList(toDoList.id, { todos, finished, dueDates });
   };
 
   const handleAutosaveReset = () => {
@@ -62,8 +70,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
         <Typography variant="headline" component="h2">
           {toDoList.title}
         </Typography>
-
-        <form onChange={handleAutosaveReset} className={classes.form}>
+        <form className={classes.form}>
           {todos.map((todo, index) => (
             <div key={index} className={classes.todoLine}>
               <Typography className={classes.standardSpace} variant="title">
@@ -78,10 +85,31 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     event.target.value,
                     ...todos.slice(index + 1)
                   ]);
+                  handleAutosaveReset();
                 }}
                 className={classes.textField}
               />
-              <p>Finished?</p>
+              <TextField
+                label="Due date?"
+                type="date"
+                value={dueDates[index]}
+                onChange={event => {
+                  setDueDate([
+                    ...dueDates.slice(0, index),
+                    event.target.value,
+                    ...dueDates.slice(index + 1)
+                  ]);
+                  handleAutosaveReset();
+                }}
+                className={classes.dateField}
+              />
+              <ToDoItemStatusMessage
+                dueDate={dueDates[index]}
+                finished={finished[index]}
+              />
+              <Typography className={classes.standardSpace}>
+                Finished?
+              </Typography>
               <Checkbox
                 checked={finished[index]}
                 value={`${finished[index]}`}
@@ -91,6 +119,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     !finished[index],
                     ...finished.slice(index + 1)
                   ]);
+                  handleAutosaveReset();
                 }}
                 color="primary"
               />
@@ -105,7 +134,11 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                   ]);
                   setFinished([
                     ...finished.slice(0, index),
-                    ...todos.slice(index + 1)
+                    ...finished.slice(index + 1)
+                  ]);
+                  setDueDate([
+                    ...dueDates.slice(0, index),
+                    ...dueDates.slice(index + 1)
                   ]);
                   handleAutosaveReset();
                 }}
@@ -121,6 +154,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
               onClick={() => {
                 setTodos([...todos, ""]);
                 setFinished([...finished, false]);
+                setDueDate([...dueDates, "mm-dd-yyyy"]);
                 handleAutosaveReset();
               }}
             >
