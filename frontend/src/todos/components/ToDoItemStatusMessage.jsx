@@ -44,7 +44,6 @@ export const ToDoItemStatusMessage = ({ dueDate, finished }) => {
 
   const dueDateObj = new Date(dueDate);
   const todaysDateObj = new Date();
-
   const msToDay = 1000 * 60 * 60 * 24;
   const daysRemaining = Math.floor((dueDateObj - todaysDateObj) / msToDay);
 
