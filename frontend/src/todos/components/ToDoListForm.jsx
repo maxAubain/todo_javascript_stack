@@ -9,7 +9,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
 import Checkbox from "@material-ui/core/Checkbox";
 import { TextField } from "../../shared/FormFields";
-import { ToDoItemDaysRemaining } from "./ToDoItemDaysRemaining";
+import { ToDoItemStatusMessage } from "./ToDoItemStatusMessage";
 
 const useStyles = makeStyles({
   card: {
@@ -103,7 +103,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                 }}
                 className={classes.dateField}
               />
-              <ToDoItemDaysRemaining dueDate={dueDates[index]} finished={finished[index]}/>
+              <ToDoItemStatusMessage dueDate={dueDates[index]} finished={finished[index]}/>
               <Typography className={classes.standardSpace}>
                 Finished?
               </Typography>

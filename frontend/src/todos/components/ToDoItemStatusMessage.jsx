@@ -39,7 +39,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const ToDoItemDaysRemaining = ({ dueDate, finished }) => {
+export const ToDoItemStatusMessage = ({ dueDate, finished }) => {
   const classes = useStyles();
 
   const dueDateObj = new Date(dueDate);
