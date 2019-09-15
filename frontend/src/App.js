@@ -5,7 +5,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { ToDoLists } from "./todos/components/ToDoLists";
 
-/* MainAppBar contains the header content */
 const MainAppBar = () => {
   return (
     <AppBar position="static" color="primary">
@@ -18,9 +17,6 @@ const MainAppBar = () => {
   );
 };
 
-/* MainWrapper is the entire application wrapper, specifying CSS flex 
-parameters for the MainAppBar through mainWrapperStyle centerContentWrapper, 
-and contentWrapperStyle. */
 const mainWrapperStyle = { display: "flex", flexDirection: "column" };
 const centerContentWrapper = { display: "flex", justifyContent: "center" };
 const contentWrapperStyle = {
@@ -41,8 +37,6 @@ const MainWrapper = ({ children }) => {
   );
 };
 
-/* App, of course, is called by index.js.  Specifies ToDoLists component
-as child of MainWrapper. */
 class App extends Component {
   render() {
     return (

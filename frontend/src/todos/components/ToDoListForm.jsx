@@ -38,8 +38,8 @@ const useStyles = makeStyles({
   }
 });
 
-let autosaveTimerStart = false;
-let autosaveID;
+let autoSaveTriggered = false;
+let autoSave;
 const TIMER = 1000;
 
 export const ToDoListForm = ({ toDoList, saveToDoList }) => {
@@ -48,20 +48,20 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const [finished, setFinished] = useState(toDoList.finished);
   const [dueDates, setDueDate] = useState(toDoList.dueDates);
 
+  const retriggerAutoSave = () => {
+    if (autoSaveTriggered) {
+      autoSaveTriggered = false;
+      clearTimeout(autoSave);
+    }
+  };
+
   const save = () => {
     saveToDoList(toDoList.id, { todos, finished, dueDates });
   };
 
-  const handleAutosaveReset = () => {
-    if (autosaveTimerStart === true) {
-      autosaveTimerStart = false;
-      clearTimeout(autosaveID);
-    }
-  };
-
-  if (autosaveTimerStart === false) {
-    autosaveID = setTimeout(save, TIMER);
-    autosaveTimerStart = true;
+  if (!autoSaveTriggered) {
+    autoSave = setTimeout(save, TIMER);
+    autoSaveTriggered = true;
   }
 
   return (
@@ -85,7 +85,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     event.target.value,
                     ...todos.slice(index + 1)
                   ]);
-                  handleAutosaveReset();
+                  retriggerAutoSave();
                 }}
                 className={classes.textField}
               />
@@ -99,7 +99,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     event.target.value,
                     ...dueDates.slice(index + 1)
                   ]);
-                  handleAutosaveReset();
+                  retriggerAutoSave();
                 }}
                 className={classes.dateField}
               />
@@ -119,7 +119,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     !finished[index],
                     ...finished.slice(index + 1)
                   ]);
-                  handleAutosaveReset();
+                  retriggerAutoSave();
                 }}
                 color="primary"
               />
@@ -140,7 +140,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     ...dueDates.slice(0, index),
                     ...dueDates.slice(index + 1)
                   ]);
-                  handleAutosaveReset();
+                  retriggerAutoSave();
                 }}
               >
                 <DeleteIcon />
@@ -155,7 +155,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                 setTodos([...todos, ""]);
                 setFinished([...finished, false]);
                 setDueDate([...dueDates, "mm-dd-yyyy"]);
-                handleAutosaveReset();
+                retriggerAutoSave();
               }}
             >
               Add Todo <AddIcon />
