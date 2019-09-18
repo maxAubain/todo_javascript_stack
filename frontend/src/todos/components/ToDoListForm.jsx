@@ -45,8 +45,6 @@ const TIMER = 1000;
 export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   const classes = useStyles();
   const [todos, setTodos] = useState(toDoList.todos);
-  const [finished, setFinished] = useState(toDoList.finished);
-  const [dueDates, setDueDate] = useState(toDoList.dueDates);
 
   const retriggerAutoSave = () => {
     if (autoSaveTriggered) {
@@ -56,7 +54,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
   };
 
   const save = () => {
-    saveToDoList(toDoList.id, { todos, finished, dueDates });
+    saveToDoList(toDoList.id, { todos });
   };
 
   if (!autoSaveTriggered) {
@@ -78,11 +76,11 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
               </Typography>
               <TextField
                 label="What to do?"
-                value={todo}
+                value={todo.item}
                 onChange={event => {
                   setTodos([
                     ...todos.slice(0, index),
-                    event.target.value,
+                    { item: event.target.value, finished: todos[index].finished, dueDate: todos[index].dueDate },
                     ...todos.slice(index + 1)
                   ]);
                   retriggerAutoSave();
@@ -92,32 +90,32 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
               <TextField
                 label="Due date?"
                 type="date"
-                value={dueDates[index]}
+                value={todo.dueDate}
                 onChange={event => {
-                  setDueDate([
-                    ...dueDates.slice(0, index),
-                    event.target.value,
-                    ...dueDates.slice(index + 1)
+                  setTodos([
+                    ...todos.slice(0, index),
+                    { item: todos[index].item, finished: todos[index].finished, dueDate: event.target.value },
+                    ...todos.slice(index + 1)
                   ]);
                   retriggerAutoSave();
                 }}
                 className={classes.dateField}
               />
               <ToDoItemStatusMessage
-                dueDate={dueDates[index]}
-                finished={finished[index]}
+                dueDate={todo.dueDate}
+                finished={todo.finished}
               />
               <Typography className={classes.standardSpace}>
                 Finished?
               </Typography>
               <Checkbox
-                checked={finished[index]}
-                value={`${finished[index]}`}
+                checked={todo.finished}
+                value={`${todo.finished}`}
                 onChange={() => {
-                  setFinished([
-                    ...finished.slice(0, index),
-                    !finished[index],
-                    ...finished.slice(index + 1)
+                  setTodos([
+                    ...todos.slice(0, index),
+                    { item: todos[index].item, finished: !todo.finished, dueDate: todos[index].dueDate },
+                    ...todos.slice(index + 1)
                   ]);
                   retriggerAutoSave();
                 }}
@@ -132,14 +130,6 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                     ...todos.slice(0, index),
                     ...todos.slice(index + 1)
                   ]);
-                  setFinished([
-                    ...finished.slice(0, index),
-                    ...finished.slice(index + 1)
-                  ]);
-                  setDueDate([
-                    ...dueDates.slice(0, index),
-                    ...dueDates.slice(index + 1)
-                  ]);
                   retriggerAutoSave();
                 }}
               >
@@ -152,9 +142,7 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
               type="button"
               color="primary"
               onClick={() => {
-                setTodos([...todos, ""]);
-                setFinished([...finished, false]);
-                setDueDate([...dueDates, "mm-dd-yyyy"]);
+                setTodos([...todos, { item: "", finished: false, dueDate: "mm/dd/yyyy" }]);
                 retriggerAutoSave();
               }}
             >
