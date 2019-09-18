@@ -16,9 +16,9 @@ const initTodos = {
     title: "First List",
     todos: [
       {
-        item: ["First todo of first list!"],
-        finished: [false],
-        dueDate: ["mm/dd/yyyy"]
+        item: "First todo of first list!",
+        finished: false,
+        dueDate: "mm/dd/yyyy"
       }
     ]
   },
@@ -27,9 +27,9 @@ const initTodos = {
     title: "Second List",
     todos: [
       {
-        item: ["First todo of second list!"],
-        finished: [false],
-        dueDate: ["mm/dd/yyyy"]
+        item: "First todo of second list!",
+        finished: false,
+        dueDate: "mm/dd/yyyy"
       }
     ]
   }
