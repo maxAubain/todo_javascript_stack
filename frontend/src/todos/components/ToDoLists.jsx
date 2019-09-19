@@ -10,12 +10,16 @@ import ReceiptIcon from "@material-ui/icons/Receipt";
 import Typography from "@material-ui/core/Typography";
 import { ToDoListForm } from "./ToDoListForm";
 
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
 
 const serverPath = "http://localhost:3001/";
-const postTodos = (serverPath, toDoLists) => axios.post(serverPath, toDoLists).then(response => console.log("response", response)).catch(err => console.log(err));
+const postTodos = (serverPath, toDoLists) =>
+  axios
+    .post(serverPath, toDoLists)
+    .then(response => console.log("response", response))
+    .catch(err => console.log(err));
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const getPersonalTodos = () => {
@@ -34,7 +38,7 @@ export const ToDoLists = ({ style }) => {
 
   if (!Object.keys(toDoLists).length) return null;
 
-  console.log("todo lists", toDoLists)
+  console.log("todo lists", toDoLists);
   postTodos(serverPath, toDoLists);
 
   return (
@@ -58,10 +62,19 @@ export const ToDoLists = ({ style }) => {
                 </ListItemIcon>
                 <ListItemText primary={toDoLists[key].title} />
                 <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => {
+                      const {prop1, ...rest} = toDoLists[key]
+                      delete newToDoLists[key];
+                      // const { [key]: ignore, ...rest} = toDoLists
+                      setToDoLists(newToDoLists);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
               </ListItem>
             ))}
           </List>
@@ -78,7 +91,7 @@ export const ToDoLists = ({ style }) => {
               ...toDoLists,
               [id]: { ...listToUpdate, todos, finished, dueDates }
             });
-            console.log("todos", todos)
+            console.log("todos", todos);
           }}
         />
       )}
