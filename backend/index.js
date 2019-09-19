@@ -3,12 +3,13 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const app = express();
-const PORT = 3001;
-const targetPath = "http://localhost:3000";
+const LOCAL_PORT = 3001;
+const devTargetPath = "http://localhost:3000";
+const prodTargetPath = "https://todo-list-client.netlify.com/";
 const jsonParser = bodyParser.json();
 
-app.use(cors({ origin: targetPath })); // Enables cross-origin HTTP requests (CORS) with white-listed client address.
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+app.use(cors(/* { origin: prodTargetPath } */)); // Enables cross-origin HTTP requests (CORS) with white-listed client address.
+app.listen(process.env.PORT || LOCAL_PORT);
 
 const initTodos = {
   "0000000001": {
