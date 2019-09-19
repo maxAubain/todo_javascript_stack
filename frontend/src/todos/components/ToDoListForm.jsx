@@ -38,7 +38,7 @@ const useStyles = makeStyles({
   }
 });
 
-let autoSaveTriggered = false;
+let autoSaveTriggered //= false;
 let autoSave;
 const TIMER = 1000;
 
@@ -57,11 +57,13 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
 
   const save = () => {
     saveToDoList(toDoList.id, { todos, finished, dueDates });
+    //console.log("saved", todos)
   };
 
   if (!autoSaveTriggered) {
     autoSave = setTimeout(save, TIMER);
     autoSaveTriggered = true;
+    console.log("autoSave triggered")
   }
 
   return (

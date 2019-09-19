@@ -35,4 +35,5 @@ app.get("/", (req, res) => {
 
 app.post("/", jsonParser, (req, res) => {
   currentTodos = req.body;
+  res.send("Post request received.");
 });
