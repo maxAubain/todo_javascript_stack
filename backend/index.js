@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 
 const app = express();
 const LOCAL_PORT = 3001;
-const devTargetPath = "http://localhost:3000";
-const prodTargetPath = "https://todo-list-client.netlify.com/";
+// const devTargetPath = "http://localhost:3000";
+// const prodTargetPath = "https://todo-list-client.netlify.com/";
 const jsonParser = bodyParser.json();
 
 app.use(cors(/* { origin: prodTargetPath } */)); // Enables cross-origin HTTP requests (CORS) with white-listed client address.
