@@ -11,15 +11,13 @@ import Typography from "@material-ui/core/Typography";
 import { ToDoListForm } from "./ToDoListForm";
 import loadingGifFile from "../../../src/img/loading.gif";
 
-// const devServerPath = "http://localhost:3001/";
-const prodServerPath = "https://todo-list-is-here.herokuapp.com/";
-
 export const ToDoLists = ({ style }) => {
   // 1. Instantiate todo list data var and active list selection var.
   const [toDoLists, setToDoLists] = useState({});
   const [activeList, setActiveList] = useState();
 
   // 2. Define: Post GET request to prodServerPath for todo list data.
+  // const devServerPath = "http://localhost:3001/";
   const prodServerPath = "https://todo-list-js-server.herokuapp.com/";
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
   const getPersonalTodos = () => {
@@ -35,7 +33,12 @@ export const ToDoLists = ({ style }) => {
 
   // 4. Define 'loading...' gif object.
   const loadingGif = (
-    <img height="200px" width="300px" src={loadingGifFile}></img>
+    <img
+      height="200px"
+      width="300px"
+      src={loadingGifFile}
+      alt="loading_gif"
+    ></img>
   );
 
   // 5. If GET request is not-yet successful, return 'loading...' gif.
