@@ -28,17 +28,17 @@ export const ToDoLists = ({ style }) => {
     );
   };
 
-  // 3. Send GET request.
+  // 3. Post GET request.
   useEffect(() => {
     getPersonalTodos().then(setToDoLists);
   }, []);
 
-  // 4. Define loading gif object.
+  // 4. Define 'loading...' gif object.
   const loadingGif = (
     <img height="200px" width="300px" src={loadingGifFile}></img>
   );
 
-  // 5. If GET request is not-yet successful, return loading gif.
+  // 5. If GET request is not-yet successful, return 'loading...' gif.
   if (!Object.keys(toDoLists).length)
     return (
       <Card style={style}>
@@ -46,7 +46,7 @@ export const ToDoLists = ({ style }) => {
       </Card>
     );
 
-  // 6. If ToDoLists state changes, post changes to server.
+  // 6. If ToDoLists state changes, post toDoList changes to server.
   const postTodos = (serverPath, toDoLists) =>
     axios.post(serverPath, toDoLists);
   postTodos(prodServerPath, toDoLists);
