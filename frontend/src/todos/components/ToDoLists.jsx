@@ -9,6 +9,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import Typography from "@material-ui/core/Typography";
 import { ToDoListForm } from "./ToDoListForm";
+import loading from "../../../src/img/loading.gif";
 
 // const devServerPath = "http://localhost:3001/";
 const prodServerPath = "https://todo-list-is-here.herokuapp.com/";
@@ -35,6 +36,7 @@ export const ToDoLists = ({ style }) => {
 
   return (
     <Fragment>
+      <img src={loading}></img>
       <Card style={style}>
         <CardContent>
           <Typography variant="headline" component="h2">
