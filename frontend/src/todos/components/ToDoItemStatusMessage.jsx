@@ -7,7 +7,8 @@ const useStyles = makeStyles({
     marginLeft: "1rem",
     marginRight: "1rem",
     width: 150,
-    textAlign: "center"
+    textAlign: "center",
+    color: "gray"
   },
   finished: {
     marginLeft: "1rem",
@@ -41,7 +42,6 @@ const useStyles = makeStyles({
 
 export const ToDoItemStatusMessage = ({ dueDate, finished }) => {
   const classes = useStyles();
-
   const dueDateObj = new Date(dueDate);
   const todaysDateObj = new Date();
   const msToDay = 1000 * 60 * 60 * 24;
@@ -51,7 +51,7 @@ export const ToDoItemStatusMessage = ({ dueDate, finished }) => {
     if (finished === true) {
       return "Item complete";
     } else if (isNaN(daysRemaining)) {
-      return "Please set a due date";
+      return "No due date set";
     } else if (daysRemaining >= 0) {
       return `Days remaining: ${daysRemaining}`;
     } else {

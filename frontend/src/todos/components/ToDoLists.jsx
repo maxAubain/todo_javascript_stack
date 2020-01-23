@@ -10,7 +10,7 @@ import ReceiptIcon from "@material-ui/icons/Receipt";
 import Typography from "@material-ui/core/Typography";
 import { ToDoListForm } from "./ToDoListForm";
 
-const devServerPath = "http://localhost:3001/";
+// const devServerPath = "http://localhost:3001/";
 const prodServerPath = "https://todo-list-is-here.herokuapp.com/";
 const postTodos = (serverPath, toDoLists) => axios.post(serverPath, toDoLists);
 

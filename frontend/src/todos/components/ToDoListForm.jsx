@@ -76,6 +76,19 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
               <Typography className={classes.standardSpace} variant="title">
                 {index + 1}
               </Typography>
+              <Checkbox
+                checked={finished[index]}
+                value={`${finished[index]}`}
+                onChange={() => {
+                  setFinished([
+                    ...finished.slice(0, index),
+                    !finished[index],
+                    ...finished.slice(index + 1)
+                  ]);
+                  retriggerAutoSave();
+                }}
+                color="primary"
+              />
               <TextField
                 label="What to do?"
                 value={todo}
@@ -89,8 +102,11 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                 }}
                 className={classes.textField}
               />
+              <ToDoItemStatusMessage
+                dueDate={dueDates[index]}
+                finished={finished[index]}
+              />
               <TextField
-                label="Due date?"
                 type="date"
                 value={dueDates[index]}
                 onChange={event => {
@@ -102,26 +118,6 @@ export const ToDoListForm = ({ toDoList, saveToDoList }) => {
                   retriggerAutoSave();
                 }}
                 className={classes.dateField}
-              />
-              <ToDoItemStatusMessage
-                dueDate={dueDates[index]}
-                finished={finished[index]}
-              />
-              <Typography className={classes.standardSpace}>
-                Finished?
-              </Typography>
-              <Checkbox
-                checked={finished[index]}
-                value={`${finished[index]}`}
-                onChange={() => {
-                  setFinished([
-                    ...finished.slice(0, index),
-                    !finished[index],
-                    ...finished.slice(index + 1)
-                  ]);
-                  retriggerAutoSave();
-                }}
-                color="primary"
               />
               <Button
                 size="small"

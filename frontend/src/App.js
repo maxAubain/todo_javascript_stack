@@ -5,13 +5,42 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { ToDoLists } from "./todos/components/ToDoLists";
 
+const toolbarStyle = {
+  display: "flex",
+  width: "100vw"
+};
+const leftToolbarStyle = {
+  display: "flex",
+  justifyContent: "flex-start",
+  width: "50%"
+};
+const rightToolbarStyle = {
+  display: "flex",
+  justifyContent: "flex-end",
+  width: "50%"
+};
+
 const MainAppBar = () => {
   return (
     <AppBar position="static" color="primary">
       <Toolbar>
-        <Typography variant="title" color="inherit">
-          Things to do
-        </Typography>
+        <div style={toolbarStyle}>
+          <div style={leftToolbarStyle}>
+            <Typography variant="title" color="inherit">
+              Things to do
+            </Typography>
+          </div>
+          <div style={rightToolbarStyle}>
+            <Typography variant="title" color="inherit">
+              <a href="https://www.maxaubain.com/about">Visit Max</a>
+            </Typography>
+            <Typography variant="title" color="inherit">
+              <a href="https://github.com/sellpy/fullstack-sandbox">
+                Forked from Sellpy
+              </a>
+            </Typography>
+          </div>
+        </div>
       </Toolbar>
     </AppBar>
   );
