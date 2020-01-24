@@ -15,12 +15,12 @@
   - Frontend hosting by Netlify.
   - Data persisted on the backend in a mutatable variable.
   - CORS configuration with various middle-ware including Axios.
-  - Data posted from frontend to backend through and auto-save feature.
+  - Data posted from frontend to backend through an auto-save feature.
   - A checkbox form element to indicate todo item completion.
   - A calandar form element to indicate todo item due date.
-  - A message form element to status of todo item, relative to completion and due date.
-  - External links and added styling.
+  - A message form element to status of todo item relative to 1) completion status and 2) due date compared to today.
+  - External links in header with added styling.
   - A "loading..." gif shown while data is being retrieved from backend.
-  - Three frontend "feature" tests implemented Cypress.
+  - Three frontend "feature" tests implemented with [Cypress](https://www.cypress.io/).
 
 - Detailed descriptions of the implementation of these features is best reviewed through the [closed pull requests](https://github.com/maxAubain/todo_javascript_stack/pulls?q=is%3Apr+is%3Aclosed) on github.
