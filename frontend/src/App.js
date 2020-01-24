@@ -35,6 +35,11 @@ const MainAppBar = () => {
               <a href="https://www.maxaubain.com/about">Visit Max</a>
             </Typography>
             <Typography variant="title" color="inherit">
+              <a href="https://todo-list-js-server.herokuapp.com/">
+                View Backend
+              </a>
+            </Typography>
+            <Typography variant="title" color="inherit">
               <a href="https://github.com/sellpy/fullstack-sandbox">
                 Forked from Sellpy
               </a>
