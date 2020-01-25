@@ -56,7 +56,9 @@ export const ToDoLists = ({ style }) => {
 
   return (
     <Fragment>
-      <div className="mobile-view">Test</div>
+      <div className="mobile-view">
+        My ToDo Lists is not currently available for mobile and tablet.
+      </div>
       <div className="desktop-view">
         <Card style={style}>
           <CardContent>

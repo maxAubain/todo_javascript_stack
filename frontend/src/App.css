@@ -40,5 +40,7 @@ a:hover {
 
   .mobile-view {
     display: inline;
+    font-size: 20px;
+    padding: 20px;
   }
 }
