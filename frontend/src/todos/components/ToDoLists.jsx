@@ -56,8 +56,8 @@ export const ToDoLists = ({ style }) => {
 
   return (
     <Fragment>
-      <div className="small-view-message"></div>
-      <div className="todo-lists">
+      <div className="mobile-view">Test</div>
+      <div className="desktop-view">
         <Card style={style}>
           <CardContent>
             <Typography variant="headline" component="h2">

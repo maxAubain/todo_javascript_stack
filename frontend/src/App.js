@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { ToDoLists } from "./todos/components/ToDoLists";
+import { Hidden } from "@material-ui/core";
 
 const toolbarStyle = {
   display: "flex",
@@ -12,12 +13,7 @@ const toolbarStyle = {
 const leftToolbarStyle = {
   display: "flex",
   justifyContent: "flex-start",
-  width: "50%"
-};
-const rightToolbarStyle = {
-  display: "flex",
-  justifyContent: "flex-end",
-  width: "50%"
+  width: "40%"
 };
 
 const MainAppBar = () => {
@@ -30,7 +26,7 @@ const MainAppBar = () => {
               Things to do
             </Typography>
           </div>
-          <div style={rightToolbarStyle}>
+          <div className="right-toolbar-style desktop-view">
             <Typography variant="title" color="inherit">
               <a href="https://www.maxaubain.com/about">Visit Max</a>
             </Typography>
