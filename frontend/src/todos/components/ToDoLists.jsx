@@ -56,43 +56,48 @@ export const ToDoLists = ({ style }) => {
 
   return (
     <Fragment>
-      <Card style={style}>
-        <CardContent>
-          <Typography variant="headline" component="h2">
-            My ToDo Lists
-          </Typography>
-          <List>
-            {Object.keys(toDoLists).map(key => (
-              <ListItem
-                key={key}
-                button
-                onClick={() => {
-                  setActiveList(key);
-                }}
-              >
-                <ListItemIcon>
-                  <ReceiptIcon />
-                </ListItemIcon>
-                <ListItemText primary={toDoLists[key].title} />
-              </ListItem>
-            ))}
-          </List>
-        </CardContent>
-      </Card>
+      <div className="mobile-view">
+        My ToDo Lists is not currently available for mobile and tablet.
+      </div>
+      <div className="desktop-view">
+        <Card style={style}>
+          <CardContent>
+            <Typography variant="headline" component="h2">
+              My ToDo Lists
+            </Typography>
+            <List>
+              {Object.keys(toDoLists).map(key => (
+                <ListItem
+                  key={key}
+                  button
+                  onClick={() => {
+                    setActiveList(key);
+                  }}
+                >
+                  <ListItemIcon>
+                    <ReceiptIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={toDoLists[key].title} />
+                </ListItem>
+              ))}
+            </List>
+          </CardContent>
+        </Card>
 
-      {toDoLists[activeList] && (
-        <ToDoListForm
-          key={activeList}
-          toDoList={toDoLists[activeList]}
-          saveToDoList={(id, { todos, finished, dueDates }) => {
-            const listToUpdate = toDoLists[id];
-            setToDoLists({
-              ...toDoLists,
-              [id]: { ...listToUpdate, todos, finished, dueDates }
-            });
-          }}
-        />
-      )}
+        {toDoLists[activeList] && (
+          <ToDoListForm
+            key={activeList}
+            toDoList={toDoLists[activeList]}
+            saveToDoList={(id, { todos, finished, dueDates }) => {
+              const listToUpdate = toDoLists[id];
+              setToDoLists({
+                ...toDoLists,
+                [id]: { ...listToUpdate, todos, finished, dueDates }
+              });
+            }}
+          />
+        )}
+      </div>
     </Fragment>
   );
 };

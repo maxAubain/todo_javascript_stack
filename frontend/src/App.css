@@ -16,3 +16,31 @@ a:hover {
   border: 1px solid rgb(255, 252, 87);
   box-shadow: 2px 2px 2px;
 }
+
+@media screen and (min-width: 1030px) {
+  .desktop-view {
+    display: inline;
+  }
+
+  .mobile-view {
+    display: none;
+  }
+
+  .right-toolbar-style {
+    display: flex;
+    justify-content: flex-end;
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 1030px) {
+  .desktop-view {
+    display: none;
+  }
+
+  .mobile-view {
+    display: inline;
+    font-size: 20px;
+    padding: 20px;
+  }
+}
