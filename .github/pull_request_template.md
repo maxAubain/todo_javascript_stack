@@ -3,16 +3,15 @@ PR Title form field above"
 # Title
 [{Initiative}] [{Epic}] [{Agile-Item-Type}] [{Agile-Item-ID}] [{'merge into' branch}][{description}]
 
-## Owners
-- Role: Name, contact information...
-
 ## Summary
 {Agile-Item-ID} or [Agile-Item link...]()
 ```
 {User story}
 ```
-- [Link to related PR...]()
 - Summary description 1...
+
+## Owners
+- Role: Name, contact information...
 
 ## Libraries / Dependencies / Frameworks Modified
 - [ADD / REMOVE / UPDATE] {Lib name} : {Lib function} : {Reason for change}
@@ -32,15 +31,17 @@ PR Title form field above"
 
 ## Checklist
 **Before Merge**
-- [ ] Verify merge-into branch.
-- [ ] Merge latest upstream remote, resolve conflicts.
-- [ ] Commit history is clean.
+- [ ] Verify merge-into branch in PR.
+- [ ] Merge latest upstream remote to local repository, resolve conflicts.
+- [ ] Confirm commit history is clean.
 - [ ] Run app / pass checks.
 - [ ] Pass local / global tests.
+- [ ] Publish to remote.
 - [ ] Review code.
 
 **After Merge**
-- [ ] Pull merged-into upstream branch to local branch.
 - [ ] Delete merged-from local and remote branch.
+- [ ] Pull merged-into upstream branch to local branch.
+- [ ] Run deployment flow.
 - [ ] Verify deployment and file Issue for unforeseen bugs.
 - [ ] Update project board and leave comments.
